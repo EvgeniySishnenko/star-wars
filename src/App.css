@@ -1,0 +1,10 @@
+.card {
+  width: 18rem;
+}
+.list-group-item {
+  cursor: pointer;
+}
+.card {
+  top: 0;
+  left: 25%;
+}
