@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import ListFilms from "./Components/ListFilms/ListFilms";
 import Details from "./Components/Details/Details";
 import Form from "./Components/Form/Form";
-import ResultForm from "./Components/Form/ResultForm";
 import "./App.css";
 function App() {
   const [detailsUrl, setDetailsUrl] = useState();
@@ -22,7 +21,6 @@ function App() {
           <Form />
         </div>
       </div>
-      <ResultForm />
     </div>
   );
 }

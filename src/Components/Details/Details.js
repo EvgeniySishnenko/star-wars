@@ -1,33 +1,11 @@
-import React, { useEffect, useState, useRef } from "react";
+import React from "react";
+import usePolling from "../../hooks/usePolling";
 
 function Details({ detailsUrl }) {
-  const [info, setInfo] = useState();
-  const [isLoadingDetails, setIsLoadingDetails] = useState(false);
-  const infoRef = useRef();
-  useEffect(() => {
-    if (info) {
-      infoRef.current = info.url;
-    }
-
-    if (infoRef.current !== Number(detailsUrl)) {
-      fetch(`${detailsUrl}`)
-        .then((response) => response.json())
-        .then((result) => {
-          setInfo(result);
-          setIsLoadingDetails(true);
-        })
-        .catch((e) => console.log(e))
-        .finally(function () {
-          setTimeout(() => {
-            setIsLoadingDetails(false);
-          }, 500);
-        });
-    }
-  }, [detailsUrl]);
-
+  const [data, isLoading, hasError] = usePolling(detailsUrl, 400, {});
   return (
     <>
-      {isLoadingDetails ? (
+      {isLoading ? (
         "Loading..."
       ) : (
         <>
@@ -38,8 +16,8 @@ function Details({ detailsUrl }) {
               alt="..."
             />
             <div className="card-body">
-              <h5 className="card-title">{info && info.title}</h5>
-              <p className="card-text">{info && info.opening_crawl}</p>
+              <h5 className="card-title">{data && data.title}</h5>
+              <p className="card-text">{data && data.opening_crawl}</p>
             </div>
           </div>
         </>

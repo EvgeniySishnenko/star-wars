@@ -1,32 +1,22 @@
 import React, { useEffect, useState } from "react";
+import usePolling from "../../hooks/usePolling";
 
 function ListFilms(props) {
-  const [list, setList] = useState();
-  const [isLoading, setIsLoading] = useState(false);
+  const [data, isLoading, hasError] = usePolling(
+    "https://swapi.dev/api/films/",
+    300,
+    []
+  );
+  const [selected, setSelect] = useState({
+    selected: "",
+  });
+  const list = data.results;
 
-  useEffect(() => {
-    fetch("https://swapi.dev/api/films/")
-      .then((response) => response.json())
-      .then((result) => {
-        setList(result.results);
-        setIsLoading(true);
-      })
-      .catch((e) => console.log(e))
-      .finally(function () {
-        setTimeout(() => {
-          setIsLoading(false);
-        }, 500);
-      });
-  }, []);
   function onGetUrl(e) {
     props.onGetUrl(e.target.dataset.url);
-
-    const wrapObj = document.querySelector(".list-group ");
-
-    for (let i = 0; i < wrapObj.children.length; i++) {
-      wrapObj.children[i].classList.remove("active");
-    }
-    e.target.classList.add("active");
+    setSelect({
+      selected: e.target.dataset.url,
+    });
   }
 
   return (
@@ -41,7 +31,9 @@ function ListFilms(props) {
                   onClick={onGetUrl}
                   key={item.url}
                   data-url={item.url}
-                  className="list-group-item"
+                  className={`list-group-item ${
+                    selected.selected === item.url ? "active" : ""
+                  }`}
                 >
                   {item.title}
                 </li>
