@@ -1,18 +1,17 @@
 import React, { useState } from "react";
 import InfoMessage from "../Message/InfoMessage";
+import usePolling from "../../hooks/usePolling";
 
-function Form() {
+function Form({ data }) {
   const [input, setInput] = useState();
   const [isShow, setIsShow] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-
   const [info, setInfo] = useState(null);
   const [formErrors, setFormErrors] = useState({
     username: "",
     email: "",
     review: "",
   });
-
   const emailRegex = RegExp(
     /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
   );
@@ -163,7 +162,9 @@ function Form() {
       </form>
 
       {info !== null && (
-        <InfoMessage onResetInfo={resetInfo}>{bodyHTML(info)}</InfoMessage>
+        <InfoMessage title={data.title} onResetInfo={resetInfo}>
+          {bodyHTML(info)}
+        </InfoMessage>
       )}
     </>
   );
