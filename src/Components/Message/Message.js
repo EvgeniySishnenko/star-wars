@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { findAllByTitle } from "@testing-library/react";
 
 function Message(props) {
   const [isShow, setIsShow] = useState(false);
@@ -18,7 +19,7 @@ function Message(props) {
         <div className="modal-content">
           <div className="modal-header">
             <h5 className="modal-title" id="staticBackdropLabel">
-              Modal title
+              {props.title}
             </h5>
             <button
               type="button"

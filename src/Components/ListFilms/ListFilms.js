@@ -11,7 +11,6 @@ function ListFilms(props) {
     selected: "",
   });
   const list = data.results;
-
   function onGetUrl(e) {
     props.onGetUrl(e.target.dataset.url);
     setSelect({

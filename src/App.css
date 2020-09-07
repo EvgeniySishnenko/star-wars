@@ -14,3 +14,6 @@
 .show {
   display: block !important;
 }
+.container-form {
+  width: 350px;
+}

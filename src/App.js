@@ -1,25 +1,20 @@
-import React, { useState } from "react";
-import ListFilms from "./Components/ListFilms/ListFilms";
-import Details from "./Components/Details/Details";
-import Form from "./Components/Form/Form";
+import React from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Home from "./pages/Home/Home";
+import Review from "./pages/Review/Review";
+
 import "./App.css";
 function App() {
-  const [detailsUrl, setDetailsUrl] = useState();
-
-  function getUrl(url) {
-    setDetailsUrl(url);
-  }
   return (
     <div className="App">
       <div className="container ">
         <h1 className="text-center">Star Wars</h1>
-        <div className="row mt-4 position-relative">
-          <ListFilms onGetUrl={getUrl} />
-          {detailsUrl && <Details detailsUrl={detailsUrl} />}
-        </div>
-        <div className="row mt-4">
-          <Form />
-        </div>
+        <Router>
+          <Switch>
+            <Route path="/" exact component={Home} />
+            <Route path="/review/:id" component={Review} />
+          </Switch>
+        </Router>
       </div>
     </div>
   );
